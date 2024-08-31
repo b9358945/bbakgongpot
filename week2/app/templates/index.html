@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Index Page{% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+<div id="loginform">
+    <form action="/main" method="POST">
+        <table>
+            <tr>
+                <td>
+                    <img src="{{ url_for('static', filename='star.png') }}" width="200" height="200"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    id : <input type="text" name="id" id="id" value="아이디"></input>            
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    password : <input type="text" name="pw" id="pw" value="패스워드"></input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="로그인"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
+{% endblock %}
