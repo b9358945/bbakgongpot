@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}글쓰기{% endblock %}
+{% block head %}
+    <!-- summernote를 위한 jquery, bootstrap, summernote들의 css, js 삽입-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    
+    <!-- write.js -->
+    <script src="{{ url_for('static', filename='js/write.js') }}"></script>
+{% endblock %}
+{% block content %}
+<form action="/write" method="POST" enctype="multipart/form-data">
+    <table class="writearticle">
+        <tr>
+            <td>제목</td>
+            <td><input type=text name="title"></td>
+        </tr>
+        <tr>
+            <td>큰 내용</td>
+            <td>
+                <textarea id="bigcontent" name="bigcontent" hidden></textarea>
+                <div id="big_summernote" ></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea id="detailcontent" name="detailcontent" hidden></textarea>
+                <div id="detail_summernote" ></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                작성자
+            </td>
+            <td>
+                [보안뉴스 {{ session['nickname'] }} 기자]
+                <input type="text" id="author" name="author" value="{{ session['id'] }}" hidden>
+            </td>
+        </tr>
+    </table>
+
+    <input type="text" name="imgurls" id="imgurls" hidden />
+    <input type="submit" value="확인"/>
+</form>
+
+<script>
+    $(document).ready(function(){
+        $('form').on('submit', function(event){
+        event.preventDefault();
+
+        let detailcontent = $('#detail_summernote').summernote('code');
+        let imgurls = [];
+
+        $(detailcontent).find('img').each(function() {
+            imgurls.push($(this).attr('src'));
+        });
+
+        // $('#imgurls').val(JSON.stringify(imgurls));
+
+        document.getElementById('imgurls').value = JSON.stringify(imgurls);
+
+        $(this).unbind('submit').submit();
+
+        });
+    });
+</script>
+
+
+
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
+{% endblock %}

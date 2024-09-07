@@ -1,0 +1,327 @@
+/* 페이지 전체 (footer 포함) */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+/* ---------------- */
+.main {
+    display: flex;
+    flex-direction: row;
+}
+
+#footer img {
+    display:block;
+    width:1200px;
+    height:auto;
+    margin: 0 auto;
+}
+
+/* -----top 메뉴----- */
+header {
+    display: flex;
+    flex-direction: column;
+
+    justify-content:center;
+    text-align:center;
+    align-items: center;
+
+    width:100%;
+}
+
+/* -----top1 메뉴----- */
+#top1 {
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    position:relative;
+}
+
+#logo {
+    margin: 0 auto;
+}
+
+#logmenu {
+    right:0;
+}
+
+#logmenu a {
+    font-size: 16px;
+    color: #000;
+    font-weight: 400;
+    line-height: 44px;
+    margin: 0 10px 0 10px;
+}
+
+/* -----top2 메뉴----- */
+#top2 {
+    color: #ccc;
+    border-top : 1px solid;
+    border-bottom : 1px solid ;
+    width : 100%;
+    text-align: center;
+}
+
+#top2 a {
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+
+    align-items: center;
+    line-height: 44px;
+    margin: 0 10px 0 10px;
+}
+
+/*----- 검색 버튼 -----*/
+.search {
+    
+    font-size: 16px;
+    color: #000;
+    font-weight: 400;
+
+    margin: 0 10px 0 10px;
+    align-items:center;
+}
+
+.search1, .search2, .search3 {
+    float:left;
+    height:44px;
+    align-items:center;
+}
+
+/* ---------------- */
+
+/* ----- 글쓰기 버튼 ----- */
+#write {
+    display:flex;
+
+    justify-content: center;
+    text-align:center;
+}
+/* ---------------- */
+
+/* ----- 기사 목록 테이블 ----- */
+.articles {
+    text-align:center;
+    border:1px solid #ccc ;
+    border-collapse: collapse;
+    width:950px;
+}
+
+.articles tr:nth-child(2n) {
+    border-bottom: 1px solid #ccc;
+}
+
+.articles a{
+    display:block;
+    text-align:left;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.firstimage {
+    width:150px;
+    height: auto;
+}
+
+.firstimage img {
+    width:150px;
+    height: auto;
+    object-fit: cover; 
+}
+
+.textcontent {
+    width:800px;
+}
+
+/* ---------------- */
+
+/* 기사 쓰기 테이블 */
+.writearticle {
+    text-align:center;
+    border:1px solid #ccc ;
+    border-collapse: collapse;
+    width:100%; 
+}
+
+.writearticle td {
+    border: 1px solid #ccc;
+}
+
+.writearticle input[type="text"], 
+.writearticle textarea {
+    width: 100%; 
+    box-sizing: border-box; 
+}
+
+.writearticle textarea {
+    resize: none; 
+    height: 200px; 
+}
+
+.writearticle textarea.bigcontent {
+    resize: none; 
+    height: 150px; 
+}
+
+.writearticle textarea.smallcontent {
+    resize: none; 
+    height: 400px; 
+}
+
+/* ---------------- */
+
+/* ----- 몸통 ----- */
+#bodycontainer {
+    display:flex;
+    flex: 1;
+    width: 100%;
+    text-align:center;
+}
+
+.content {
+    flex:8;
+}
+
+#leftad {
+    flex:1;
+}
+
+#rightad {
+    flex:1;
+}
+/* ---------------- */
+
+/* article.html */
+/*--- 제일 큰 그림 ---*/
+.title {
+
+    font-size: 2.5em;
+    font-family: "Noto Sans KR", "Nanum Gothic";
+    color: #000000;
+
+    text-align: justify;
+    display: block;
+}
+
+.articlecontainer {
+    display:flex;
+    flex-direction: row;
+    width:100%;
+}
+
+.article {
+    flex:8;
+}
+/* ---------------- */
+
+/*--- 기사 오른쪽 사이드 ---*/
+.articleside {
+    flex:2;
+
+    border:1px solid #ccc;
+    padding:10px;
+    margin:10px;
+}
+
+.sidearticle {
+    width:100%;
+    height:auto;
+}
+
+/* ---------------- */
+.date{
+    font-size: 1em;
+    font-family: "Noto Sans KR", "Nanum Gothic";
+    color: #8C8C8C;
+
+    text-align: left;
+    display:block;
+    margin-bottom: 16px;
+}
+
+.articlead1{
+    width:100%;
+    height:auto;
+
+    border:0;
+    margin-bottom:10px
+}
+
+.articlead1 img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.bigcontent {
+    font-size: 1.4em;
+    font-family: "Noto Sans KR", "Nanum Gothic";
+    font-weight: 400;
+    color: #000000;
+
+    text-align: justify;
+}
+
+.detailcontent {
+    font-size: 18px;
+    font-family: "Noto Sans KR", "Nanum Gothic";
+    font-weight: 300;
+    color: #333333;
+
+    text-align: justify;
+    line-height: 32px;
+}
+
+/* ----- 로그인, 회원가입 ----- */
+.login {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+    height:70vh;
+}
+
+.logintable { 
+    border:1px solid #ccc;
+    background-color:#eee;
+}
+
+.register {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+    height:70vh;
+}
+
+.registertable { 
+    border:1px solid #ccc;
+    background-color:#eee;
+}
+/* ---------------- */
+
+/* ----- 기본 엘리먼트 ----- */
+pre {
+    white-space: pre-wrap;
+    word-wrap:break-world;
+}
+
+a {
+    text-decoration:none;
+}
+
+a:visited {
+    color: inherit;
+}
+/* ---------------- */
+
+/* ----- footer ----- */
+footer {
+    padding: 30px;
+    text-align: center;
+    margin-top: auto;
+    width: 100%;
+}
+/* ---------------- */
+

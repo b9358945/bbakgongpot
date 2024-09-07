@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %} 로그인 {% endblock %}
+
+{% block content %}
+<div class="login">
+    <table class="logintable">
+        <tr>
+            <td>아이디 </td>
+            <td>
+                <input type="text" id="id" >
+            </td>
+        </tr>
+        <tr>
+            <td>비밀번호 </td>
+            <td>
+                <input type="text" id="pw">
+            </td>
+        </tr>
+    </table>
+    <input type="button" class="btn btn-success btn-lg" value="확인" id="submit" onclick="login()"/>
+</div>
+
+
+<script>
+    function login() {
+        let id = document.getElementById('id').value;
+        let pw = document.getElementById('pw').value;
+
+        // request 보내기
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/login', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('id=' + encodeURIComponent(id) + '&pw=' + encodeURIComponent(pw));
+
+        // 응답값 받으면
+        xhr.onload = function() {
+            if (xhr.status == 200) {
+                let response = JSON.parse(xhr.response);
+
+                if (response.login_success) {
+                    alert('로그인 성공');
+                    window.location.href = "/";
+                }
+                else {
+                    alert('아이디 비밀번호가 맞지 않습니다. 다시 시도해주세요')
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}

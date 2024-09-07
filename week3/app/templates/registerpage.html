@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %} 회원가입 {% endblock %}
+
+{% block content %}
+<form action="/register" method="POST" onsubmit="return input_validate()">
+    <div class="register">
+        <table class="registertable">
+            <tr>
+                <td>회원 유형</td>
+                <td>
+                    <select name="member_type">
+                        <option value="1">기자</option>
+                        <option value="2">일반</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>아이디 </td>
+                <td>
+                    <input type="text" name="id" id="id" required> <input type="button" value="중복 확인" onclick="id_duplicate_check()" >
+                </td>
+            </tr>
+            <tr>
+                <td>닉네임</td>
+                <td>
+                    <input type="text" name="nickname">
+                </td>
+            </tr>
+            <tr>
+                <td>비밀번호<br>(8자리 이상)</td>
+                <td>
+                    <input type="text" name="pw" id="pw" required> 
+                </td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td>
+                    <input type="text" name="email">
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="확인" id="submit" class="btn btn-success btn-lg" disabled/>
+    </div>
+</form>
+
+<script>
+    function id_duplicate_check() {
+        let id = document.getElementById('id').value;
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/id_duplicate_check', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('id=' + encodeURIComponent(id));
+
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                let response = JSON.parse(xhr.responseText);
+                if (response.id_exist) {
+                    alert("존재하는 아이디입니다. 다른 아이디를 입력하세요");
+                    document.getElementById('submit').disabled = true;
+                }
+                else {
+                    alert("아이디를 사용할 수 있습니다");
+                    document.getElementById('submit').disabled = false;
+                }
+            }
+            else {
+                alert("다시 시도해주세요")
+            }
+        };
+    }
+
+    function input_validate() {
+        let pw = document.getElementById('pw').value;
+
+        if(pw.length < 8) {
+            document.getElementById('pw').focus();
+            return false;
+        }
+        return true;
+    }
+
+</script>
+{% endblock %}
