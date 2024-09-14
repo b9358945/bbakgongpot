@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %} 로그인 {% endblock %}
+
+{% block content %}
+<div class="customer_container">
+{% include "memberside.html" %}
+    <section style="justify-content: center; align-items: center; text-align: center;">
+        <ul class="login">
+            <div style="font-size: 30px; font-weight: 600; text-align: left; align-items: left;">
+                <p> 회원 로그인</p>
+            </div>
+            <table>
+                <tr>
+                    <td>
+                        <div style="display: flex; align-items: center; justify-content: center;">
+                            <table class="logintable">
+                                <tr>
+                                    <td colspan="2">
+                                        <p style="font-weight: 600; font-size: 17px;">보안뉴스에 오신 것을 환영합니다.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="text" id="id" placeholder="아이디" >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="text" id="pw" placeholder="비밀번호">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 280px">
+                                        <input type="button" class="btn btn-success btn-lg" value="로그인" id="submit" onclick="login()" style="width: 190px; height:45px; background-color:#3C9BEE;"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                    <td style="display: flex; justify-content: center; align-items: center; padding:10px 0px 10px 0px;"> 
+                        <div>
+                            <img src="{{ url_for('static', filename='ad1.gif') }}" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div style="text-align: left; width:640px;">
+                보안뉴스 아이디가 없으신 분은 회원가입 후 이용하실 수 있습니다. <br><br>
+                Passwordless 서비스를 해지를 원하시면 로그인하시고 개인정보 수정 페이지 좌측 메뉴 'Passwordless 설정'에서
+간편하게 해지가 가능합니다. 비밀번호가 변경되므로 기존 비밀번호로 로그인 하시려면 '비밀번호 찾기' 기능을 이용해
+비밀번호를 재설정한 뒤 로그인하세요.
+            </div>
+        </ul>
+    </section>
+</div>
+
+<script>
+    function login() {
+        let id = document.getElementById('id').value;
+        let pw = document.getElementById('pw').value;
+
+        // request 보내기
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/login', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('id=' + encodeURIComponent(id) + '&pw=' + encodeURIComponent(pw));
+
+        // 응답값 받으면
+        xhr.onload = function() {
+            if (xhr.status == 200) {
+                let response = JSON.parse(xhr.response);
+
+                if (response.login_success) {
+                    alert('로그인 성공');
+                    window.location.href = "/";
+                }
+                else {
+                    alert('아이디 비밀번호가 맞지 않습니다. 다시 시도해주세요')
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}

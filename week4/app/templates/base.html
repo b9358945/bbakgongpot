@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"  />
+    <link href="{{ url_for('static', filename='favicon.ico') }}" rel="icon" type="image/x-icon"  />
+    <title>{% block title %}{% endblock %}</title>
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+<div class="entire">
+    <div id="leftad">
+        <a href="https://www.boannews.com/top100/">
+            <img src="{{url_for('static', filename='leftad1.jpg')}}" />
+        </a>
+        <a href="https://www.boannews.com/premium/default.asp">
+            <img src="{{url_for('static', filename='leftad2.jpg')}}" />
+        </a>  
+        <a href="https://www.boannews.com/golf/">
+            <img src="{{url_for('static', filename='leftad3.jpg')}}" />
+        </a>
+    </div>
+    <div class="container">
+        <header>
+            <div id="top1">
+                <div id="logo">
+                    <img id="logo1" src="{{ url_for('static', filename='securityworld.png') }}" height="35" width="180" alt="securityworld">
+                    <a href="/" />
+                    </img>
+                    <img id="logo2" src="{{ url_for('static', filename='boannews.gif') }}" height="65" width="340" alt="boannews"/> 
+                </div>
+                <div id="logmenu">
+                    {% if session['id'] %}
+                        <a href="{{ url_for('profile', id=session['id']) }}">
+                            {{ session['nickname'] }} 님
+                        </a>
+                        <a href="{{ url_for('logout') }}">로그아웃</a>
+                        <a href="/writePage">글쓰기</a>
+                    {% else %}
+                        <a href="/loginpage">로그인</a> 
+                        <a href="/registerpage">회원가입</a>
+                    {% endif %}
+                </div>
+                <div class="search">
+                    <form>
+                        <div class="search1">
+                            <select name="select_option">
+                                <option value="all">통합검색</option>
+                                <option value="title">제목</option>
+                                <option value="content">내용</option>
+                            </select> 
+                        </div>
+                        <div class="search2">
+                            <input type="text" name="keyword" >
+                        </div>
+                        <div class="search3">
+                            <input type="image" src="{{ url_for('static', filename='search.gif') }}" alt="search" name="search" formaction="/search" formMethod="GET">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="top2">
+                <a href="/">#전체기사</a><a href="/">#시큐리티월드</a><a href="/">#사건사고</a><a href="/">#보안리포트</a><a href="/">#사이버안보</a><a href="/">#AI</a>
+            </div>
+        </header>
+        <section class="middle">
+
+            <div id="bodycontainer">
+
+                <div class="content">
+                    {% block content %}
+                        content
+                    {% endblock %}
+                </div>
+            </div>
+        </section>
+        {% block footer %}
+        <div id="footer" class="footer">
+            <img src="{{url_for('static', filename='footer.png')}}" />
+        </div>
+        {% endblock %}
+
+    </div>
+    <div id="rightad">
+        <a href="http://www.securityaward.org/kor/main.asp">
+            <img src="{{url_for('static', filename='rightad1.jpg')}}" />
+        </a>
+        <a href="https://www.boannews.com/securityworld/ad.asp">
+            <img src="{{url_for('static', filename='rightad2.jpg')}}" />
+        </a>
+        <a href="https://www.boannews.com/stock/">
+            <img src="{{url_for('static', filename='rightad3.jpg')}}" />
+        </a>
+    </div>
+</div>
+</body>
+</html>

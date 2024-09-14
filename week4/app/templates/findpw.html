@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %} 아이디 찾기 {% endblock %}
+
+
+{% block content %}
+<div style="display:flex;">
+{% include "memberside.html" %}
+    <div>
+        <table>
+            <tr>
+                <td style="font-size: 30px; font-weight: 600; text-align: left; align-items: left;">
+                    비밀번호 찾기
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    다음 항목을 입력해 주시면 고객님의 정보를 메일로 받아 보실 수 있습니다.
+                </td>
+            </tr>
+        </table>
+        <div style="padding : 20px 20px 20px 20px; border:1px solid #ccc;">
+            <table class="findidtable" style="border: 1px solid #ccc; width:700px; margin:20px 20px 20px 20px;">
+                <tr>
+                    <td style="width:200px;">
+                        아이디
+                    </td>
+                    <td>
+                        <input type="text" nane="id" id="id">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        이름
+                    </td>
+                    <td>
+                        <input type="text" name="realname" id="realname">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        이메일
+                    </td>
+                    <td>
+                        <input type="text" name="email" id="email">
+                    </td>
+                </tr>
+                <tr id="verifysection" hidden>
+                    <td>
+                        인증 코드
+                    </td>
+                    <td>
+                        <input type="text" id="verifycode" name="verifycode">
+                        <input type="button" onclick="check_verifycode()" value="인증 코드 확인">
+                    </td>
+                </tr>
+            </table>
+            <div id="section_pw" style="font-weight: bold; font-size: 15px;" hidden>
+            </div>
+            <div>
+                <input type="submit" value="인증코드 발송" class="btn btn-success btn-lg" onclick="send_verifycode()">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function send_verifycode() {
+        let id = document.getElementById('id').value;
+        let realname = document.getElementById('realname').value;
+        let email = document.getElementById('email').value;
+
+        let url = "/send_verifycode?id=" + encodeURIComponent(id) + "&realname=" + encodeURIComponent(realname) + "&email=" + encodeURIComponent(email);
+
+        // 인증코드 생성 요청
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+
+        xhr.onload = function() {
+            if (xhr.status == 200){
+                let response = JSON.parse(xhr.response);
+
+                if (response.send_verifycode) {
+                    alert(response.message);
+                    document.getElementById('verifysection').removeAttribute('hidden');
+                } else {
+                    alert(response.message);
+                }
+            } else {
+                console.error(xhr.status);
+            }
+        }
+        xhr.send();
+    }
+
+    function check_verifycode() {
+        let verifycode = document.getElementById('verifycode').value;
+        let id = document.getElementById('id').value;
+        let email = document.getElementById('email').value;
+        let realname = document.getElementById('realname').value;
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/check_verifycode', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onload = function() {
+            if (xhr.status == 200){
+                let response = JSON.parse(xhr.response);
+
+                if (response.message == '인증 성공') {
+                    let pw = response.pw;
+                    document.getElementById('section_pw').innerHTML = `비밀번호는 ${pw} 입니다`;
+                    document.getElementById('section_pw').removeAttribute('hidden');
+                }
+                else {
+                    alert(response.message);
+                }
+            }
+        }
+
+        xhr.send('id=' + encodeURIComponent(id)
+        + '&realname=' +encodeURIComponent(realname)
+        + '&email=' + encodeURIComponent(email)
+        + '&verifycode=' + encodeURIComponent(verifycode));
+    }
+</script>
+{% endblock %}

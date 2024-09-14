@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %} 아이디 찾기 {% endblock %}
+
+
+{% block content %}
+<div style="display:flex;">
+{% include "memberside.html" %}
+    <div>
+        <table>
+            <tr>
+                <td style="font-size: 30px; font-weight: 600; text-align: left; align-items: left;">
+                    아이디 찾기
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    다음 항목을 입력해 주시면 고객님의 정보를 메일로 받아 보실 수 있습니다.
+                </td>
+            </tr>
+        </table>
+        <div style="padding : 20px 20px 20px 20px; border:1px solid #ccc;">
+            <table class="findidtable" style="border: 1px solid #ccc; width:700px; margin:20px 20px 20px 20px;">
+                <tr>
+                    <td style="width:200px;">
+                        이름
+                    </td>
+                    <td>
+                        <input type="text" id="realname">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        이메일
+                    </td>
+                    <td>
+                        <input type="text" id="email">
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <input type="button" value="이메일 발송" class="btn btn-success btn-lg" onclick="send_email()">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function send_email() {
+        realname = document.getElementById('realname').value;
+        email = document.getElementById('email').value;
+
+        // 인증코드 생성 로직
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/send_email', true)
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('realname='+ encodeURIComponent(realname)+'&email=' + encodeURIComponent(email));
+
+        xhr.onload = function() {
+            if (xhr.status == 200){
+                let response = JSON.parse(xhr.response);
+                alert(response.message);
+            }
+        }
+    }
+    
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}{{row['title']}}{% endblock %}
+{% block content %}
+
+
+<div class="title">
+    <p>{{row['title']}}</p>
+</div>
+<section>
+    <section class="articlecontainer">
+        <section class="article">
+            <div class="date">
+                <p>입력 : {{ row['date'] }}</p>
+                <p> [보안뉴스 {{ row['author'] }}]기자 </p>
+            </div>
+            <div class="articlead1">
+                <img src="{{ url_for('static', filename='articlead1.jpg') }}" />
+            </div>
+            <div>
+                {% if files %}
+                <a href="{{ files['file_url'] }}" download> 첨부파일 : {{ files['filename'] }} </a>
+                {% else %}
+                {% endif %}
+            </div>
+            <div class="bigcontent">
+                <pre>{{ row['bigcontent'] | safe }}</pre>
+            </div>
+            
+            <div class="detailcontent">
+                <pre>{{ row['detailcontent'] | safe }}</pre>
+            </div>
+    
+            <div id="buttons" style="display:none; border-top:1px solid #ccc" >
+                <div>
+                    <input type="button" class="btn btn-success btn-lg" id="editbutton" value="수정"> <input type="button" class="btn btn-success btn-lg" id="deletebutton" value="삭제">
+                </div>
+            </div>
+    
+            <input type="hidden" id="article_idx" value="{{ row['idx'] }}">
+    
+        </section>
+        <section>
+            {% include "articleside.html" %}
+        </section>
+    </section>
+    <section class="reply">
+        댓글란
+    </section>
+</section>
+<script>
+    let id = "{{ id }}"
+    let author = "{{ row['author'] }}"
+
+    document.addEventListener('DOMContentLoaded', function(){
+        if(id == author){
+            let buttons = document.getElementById('buttons');
+            buttons.style.display="block";
+        }
+    });
+
+    document.getElementById('editbutton').addEventListener('click', function(event) {
+        article_idx =  document.getElementById('article_idx').value;
+
+        event.preventDefault();
+        window.location.href = `/editpage/${article_idx}`;
+    });
+
+    document.getElementById('deletebutton').addEventListener('click', function(event) {
+
+        event.preventDefault();
+        window.location.href = "/delete_article/{{ row['idx'] }}"
+        alert("게시글이 삭제되었습니다.")
+    });
+
+</script>
+
+{% endblock %}

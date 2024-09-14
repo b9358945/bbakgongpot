@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}보안뉴스_뉴스{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div>
+        <table class="articles">
+            {% for row in rows %}
+                <tr>
+                    {% if row['imgurl'] %}
+                        <td rowspan="2" class="firstimage">
+                            <a href="{{url_for('article', idx=row['idx'])}}" >
+                                <img src="{{ row['imgurl'] }}"></img>
+                            </a>
+                        </td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td style="height:7px;">
+                        <a href="{{url_for('article', idx=row['idx'])}}" style="font-size:20px; font-weight:bold;" >
+                            {{row['title'] | safe}}
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mainbigcontent" style="height:14px;">
+                        <a href="{{url_for('article', idx=row['idx'])}}" style="color:#999999; font-size:15px; " >
+                            {{row['bigcontent'] | safe }}                        
+                        </a>
+                        {% if row['secret_article'] == 1 %}
+                        🔐
+                        {% endif %}
+                        <div style="display:flex; flex-direction: row;">
+                            조회수 : {{ row['viewcount'] }} &nbsp; <a href="{{ url_for('profile', id=row['author']) }}"> 작성자: {{ row['author'] }} 
+                            </a>
+ 
+                        </div>
+
+                    </td>
+                </tr>
+            {% else %}
+            <p> 검색결과가 없습니다. </p>
+            {% endfor %}
+        </table>
+
+    </div>
+    {% include "articleside.html" %}
+</div>
+
+<div id="pagination">
+    {% for p in page_range %}
+        {% if p == page %}
+            <strong>{{ p }}</strong>
+        {% else %}
+            <a href="{{ url_for('index', page=p) }}">{{ p }}</a>
+        {% endif %}
+    {% endfor %}
+</div>
+<script>
+    $(document).ready(function(){
+
+
+    });
+
+</script>
+
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
+{% endblock %}

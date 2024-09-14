@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}글쓰기{% endblock %}
+
+{% block content %}
+    <form action="/write" method="POST" enctype="multipart/form-data">
+        <div>
+            <input type="file" name="files" multiple="multiple" >
+        </div>
+        <table class="writearticle">
+            <tr>
+                <td>제목</td>
+                <td><input type=text name="title"></td>
+            </tr>
+            <tr>
+                <td>큰 내용</td>
+                <td>
+                    <textarea class="bigcontent" cols="100" rows="100" name="bigcontent"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>작은 내용</td>
+                <td>
+                    <textarea class="detailcontent" cols="100" rows="100" name="detailcontent"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    작성자
+                </td>
+                <td>
+                    <input type="text" value="로그인 후 아이디 가져올 자리" name="author" readonly>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="확인"/>
+    </form>
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
+{% endblock %}
