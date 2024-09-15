@@ -528,10 +528,10 @@ def write():
     secret_article = 0
     secret_article_pw = None
     # 비밀글인지 체크
-    secret_article = request.form['secret_article'] == 'on'
-    if secret_article :
-        secret_article_pw = request.form['secret_article_pw']
-        secret_article = 1
+    if 'secret_article' in request.form :
+        if request.form['secret_article'] == 'on' :
+            secret_article_pw = request.form['secret_article_pw']
+            secret_article = 1
 
     query = """
     INSERT INTO article (title, bigcontent, detailcontent, author, date, secret_article, secret_article_pw)

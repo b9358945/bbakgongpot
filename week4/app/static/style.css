@@ -204,6 +204,7 @@ header {
 
 .content {
     flex:8;
+    
 
 }
 
@@ -343,7 +344,6 @@ header {
     align-items: center;
     justify-content: center;
     flex-direction:column;
-    height:70vh;
 }
 
 .registertable { 

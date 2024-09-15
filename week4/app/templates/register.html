@@ -4,8 +4,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 {% endblock %}
 {% block content %}
-<form action="/register" method="POST" onsubmit="return input_validate()">
-    <div class="register">
+
+<div class="register">
+    <form action="/register" method="POST" onsubmit="return input_validate()"></form>
         <table class="registertable">
             <tr>
                 <td>회원유형</td>
@@ -47,7 +48,7 @@
             <tr>
                 <td>비밀번호<br>(8자리 이상)</td>
                 <td>
-                    <input type="text" name="pw" id="pw" required> 
+                    <input type="password" name="pw" id="pw" required> 
                 </td>
             </tr>
             <tr>
@@ -71,8 +72,9 @@
             </tr>
         </table>
         <input type="submit" value="확인" id="submit" class="btn btn-success btn-lg" disabled/>
-    </div>
-</form>
+    </form>
+</div>
+
 
 <script>
     function id_duplicate_check() {
