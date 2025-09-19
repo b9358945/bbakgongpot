@@ -1,1 +1,1 @@
-confirm(9)
+</script><script>confirm(9)</script>
